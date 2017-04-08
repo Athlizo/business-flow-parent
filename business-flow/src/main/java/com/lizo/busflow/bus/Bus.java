@@ -108,4 +108,8 @@ public class Bus {
     public void occurException(Exception e) {
         dealExcpetion(e);
     }
+
+    public void setRoutingKey(String key){
+        busContext.setRoutingKey(key);
+    }
 }

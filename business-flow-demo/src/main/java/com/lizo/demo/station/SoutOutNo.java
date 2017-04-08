@@ -6,14 +6,16 @@ import com.lizo.busflow.station.Station;
 /**
  * Created by lizhou on 2017/4/8/008.
  */
-public class TestEndStation implements Station {
+public class SoutOutNo implements Station {
+
     @Override
     public void doBusiness(Bus bus) {
-        System.out.println("over");
+        System.out.println("ok");
     }
 
     @Override
     public String getName() {
         return null;
     }
+
 }

@@ -27,7 +27,6 @@ public class DefaultRouting implements Routing {
                 return routingCondition.getStationRoutingWrap();
             }
         }
-        busContext.setException(new NoRoutingException());
         return null;
     }
 

@@ -22,11 +22,13 @@
     </xsd:element>
 
 
+
     <xsd:group name="stopElements">
         <xsd:sequence>
             <xsd:element ref="description" minOccurs="0"/>
             <xsd:choice minOccurs="0" maxOccurs="unbounded">
                 <xsd:element ref="routing"/>
+                <xsd:element ref="property"/>
                 <xsd:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:choice>
         </xsd:sequence>
@@ -57,20 +59,53 @@
     </xsd:attributeGroup>
 
 
-    <xsd:element name="routing" type="headRouting">
+    <xsd:element name="routing">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="beans:identifiedType">
+                    <!--<xsd:group ref="stopElements"/>-->
+                    <xsd:attributeGroup ref="routingAttributes"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <!--<xsd:element name="routing" type="headRouting">-->
+    <!--<xsd:annotation>-->
+    <!--<xsd:documentation><![CDATA[ The method invoke timeout. ]]></xsd:documentation>-->
+    <!--</xsd:annotation>-->
+    <!--</xsd:element>-->
+
+    <xsd:attributeGroup name="routingAttributes">
+        <xsd:attribute name="value" type="xsd:string" default="@default">
+            <![CDATA[ ]]>
+        </xsd:attribute>
+        <xsd:attribute name="to" type="xsd:IDREF" use="required">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <tool:annotation kind="ref">
+                        <tool:expected-type type="com.lizo.busflow.station.Station"/>
+                    </tool:annotation>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="patten" type="xsd:string" default="string">
+            <![CDATA[ ]]>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+
+    <xsd:element name="property" type="propertyType">
         <xsd:annotation>
             <xsd:documentation><![CDATA[ The method invoke timeout. ]]></xsd:documentation>
         </xsd:annotation>
     </xsd:element>
 
-    <xsd:complexType name="headRouting">
-        <xsd:attribute name="value" type="xsd:string" default="@default">
+    <xsd:complexType name="propertyType">
+        <xsd:attribute name="name" type="xsd:string" use="required">
             <![CDATA[ ]]>
         </xsd:attribute>
-        <xsd:attribute name="to" type="xsd:IDREF" use="required">
-            <![CDATA[ ]]>
-        </xsd:attribute>
-        <xsd:attribute name="patten" type="xsd:string" default="string">
+        <xsd:attribute name="key" type="xsd:string" use="required">
             <![CDATA[ ]]>
         </xsd:attribute>
     </xsd:complexType>
@@ -88,7 +123,7 @@
             <xsd:annotation>
                 <xsd:appinfo>
                     <tool:annotation kind="ref">
-                        <tool:expected-type type="com.lizo.busflow.station.Station"/>
+                        <tool:expected-type type="java.lang.Object"/>
                     </tool:annotation>
                 </xsd:appinfo>
             </xsd:annotation>

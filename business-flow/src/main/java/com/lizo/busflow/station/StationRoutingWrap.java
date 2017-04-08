@@ -6,7 +6,7 @@ import com.lizo.busflow.routing.Routing;
 
 /**
  * 使用<bf:stop>标签定义类
- *
+ * <p>
  * 代理模式，代理station
  * Created by lizhou on 2017/3/14/014.
  */
@@ -24,7 +24,9 @@ public class StationRoutingWrap implements Station {
         }
         if (routing != null) {
             Station next = routing.doRouting(bus.getBusContext());
-            next.doBusiness(bus);
+            if (next != null) {
+                next.doBusiness(bus);
+            }
         }
     }
 
