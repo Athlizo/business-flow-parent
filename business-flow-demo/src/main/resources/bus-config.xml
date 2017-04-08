@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bf="http://www.lizo.com/schema/bf"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.lizo.com/schema/bf
+        http://www.lizo.com/schema/bf.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <bean id="findMax" class="com.lizo.demo.station.FindMax"/>
+    <bean id="findMin" class="com.lizo.demo.station.FindMin"/>
+    <bean id="fileWrite" class="com.lizo.demo.station.FileWrite">
+        <property name="filePath" value="out.txt"/>
+        <property name="writeDataFormContext">
+            <util:list>
+                <value>maxValue</value>
+                <value>minValue</value>
+            </util:list>
+        </property>
+    </bean>
+    <bean id="end" class="com.lizo.demo.station.TestEndStation"/>
+
+    <bf:busFactory/>
+
+    <bf:bus id="testBus" start="findMaxStop" record="false" finish="end"/>
+
+    <bf:stop id="findMaxStop" ref="findMax">
+        <bf:routing to="findMinStop"/>
+    </bf:stop>
+
+    <bf:stop id="findMinStop" ref="findMin">
+        <bf:routing to="fileWriteStop"/>
+    </bf:stop>
+
+    <bf:stop id="fileWriteStop" ref="fileWrite">
+    </bf:stop>
+
+
+</beans>
