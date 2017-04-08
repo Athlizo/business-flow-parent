@@ -8,10 +8,10 @@ a station can “accept” buses, get Data from bus,and put new Data into bus.
 every bus have a routing Key> according to the key Routing can select Station which bus next arrive to.
 # example
 we want:
-//input list or number
-//1. find Maximum and Minimum
-//2. write file
-//3. The difference between the two numbers is less than 10, print ok , else print no
+* input list or number
+* find Maximum and Minimum
+* write file
+* The difference between the two numbers is less than 10, print ok , else print no
 xml config file can define Routing
 ```
 <bean id="findMax" class="com.lizo.demo.station.FindMax"/>
