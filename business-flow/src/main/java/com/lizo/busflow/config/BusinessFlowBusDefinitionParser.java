@@ -15,13 +15,14 @@ import org.w3c.dom.Element;
 import static org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.ID_ATTRIBUTE;
 
 /**
+ * 解析<bf:bus>标签
  * Created by lizhou on 2017/3/14/014.
  */
 public class BusinessFlowBusDefinitionParser implements BeanDefinitionParser {
     public BeanDefinition parse(Element element, ParserContext parserContext) {
         String id = element.getAttribute(ID_ATTRIBUTE);
-        String start = element.getAttribute("start");
-        String maxPath = element.getAttribute("maxPath");
+        String start = element.getAttribute("start"); // 起始Station
+        String maxPath = element.getAttribute("maxPath"); //最长运行路径
         String exception = element.getAttribute("exception");
         String finish = element.getAttribute("finish");
 
@@ -30,6 +31,7 @@ public class BusinessFlowBusDefinitionParser implements BeanDefinitionParser {
         //保证每次获取的都是新的对象
         bus.setScope(ConfigurableBeanFactory.SCOPE_PROTOTYPE);
 
+        //根据属性注册BeanDefinition
         RuntimeBeanReference startBean = new RuntimeBeanReference(start);
         bus.getPropertyValues().add("start", startBean);
 

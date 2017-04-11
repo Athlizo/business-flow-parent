@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 创建PatternMatch的工厂
  * Created by lizhou on 2017/3/14/014.
  */
 public class PatternFactory {

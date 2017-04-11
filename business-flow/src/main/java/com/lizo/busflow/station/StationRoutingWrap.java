@@ -5,7 +5,8 @@ import com.lizo.busflow.bus.Bus;
 import com.lizo.busflow.routing.Routing;
 
 /**
- * 使用<bf:stop>标签定义类
+ * 使用<bf:stop>标签定义类，该类是实际Station的代理类，代理调用Station的业务逻辑
+ * 并且提供路由功能。
  * <p>
  * 代理模式，代理station
  * Created by lizhou on 2017/3/14/014.

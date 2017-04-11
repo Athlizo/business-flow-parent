@@ -10,6 +10,7 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
 /**
+ * 处理<busFactory>标签，开启该标签以后才能使用{@link BusFactory}
  * Created by lizhou on 2017/3/14/014.
  */
 public class BusinessFlowBusFactoryDefinitionParser implements BeanDefinitionParser {

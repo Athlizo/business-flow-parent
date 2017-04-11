@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * bus 处理中的上下文环境
  * Created by lizhou on 2017/3/14/014.
  */
 public class BusContext implements Serializable {
-    //头信息，存储于业务数据无关的数据
+    //路由信息
     private String routingKey;
     //上下文环境，存储业务数据相关的数据
     private Map<String, Object> context = new HashMap<String, Object>();

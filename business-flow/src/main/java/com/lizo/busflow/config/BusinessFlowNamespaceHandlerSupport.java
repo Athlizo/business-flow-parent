@@ -3,6 +3,7 @@ package com.lizo.busflow.config;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
+ * bf注册
  * Created by lizhou on 2017/3/14/014.
  */
 public class BusinessFlowNamespaceHandlerSupport extends NamespaceHandlerSupport {

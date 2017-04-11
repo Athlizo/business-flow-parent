@@ -17,6 +17,8 @@ import org.w3c.dom.Element;
 import static org.springframework.beans.factory.xml.BeanDefinitionParserDelegate.ID_ATTRIBUTE;
 
 /**
+ * 处理<bf:stop>标签
+ * 对于ref的Station，使用{@link StationRoutingWrap}进行包装
  * Created by lizhou on 2017/3/14/014.
  */
 public class BusinessFlowStopDefinitionParser implements BeanDefinitionParser {
