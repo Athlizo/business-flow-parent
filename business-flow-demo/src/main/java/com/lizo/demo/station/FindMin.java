@@ -11,14 +11,12 @@ import java.util.List;
 public class FindMin implements Station {
     public static final String FindMinKey = "minValue";
 
-    @Override
-    public void doBusiness(Bus bus) {
-        List<Integer> l = (List<Integer>) bus.getContest("intList");
-        if (l.size() == 0) {
+    public void doBusiness(List<Integer> intList, Bus bus) {
+        if (intList.size() == 0) {
             return;
         }
-        int min = l.get(0);
-        for (Integer integer : l) {
+        int min = intList.get(0);
+        for (Integer integer : intList) {
             if (integer < min) {
                 min = integer;
             }

@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.lizo.busflow.context.BusContext;
 import com.lizo.busflow.context.BusPathRecord;
 import com.lizo.busflow.exception.MaxPathException;
+import com.lizo.busflow.station.BusHandlerMethod;
 import com.lizo.busflow.station.Station;
+import com.lizo.busflow.station.StationRoutingWrap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +35,16 @@ public class Bus {
 
     public BusContext run() {
         try {
-            this.arrive(start);
+            if (!(start instanceof StationRoutingWrap)) {
+                throw new IllegalArgumentException("bus start must be <bf:stop id=\"\">");
+            }
+
+            ((StationRoutingWrap) start).doBusiness(this);
         } catch (Exception e) {
             dealExcpetion(e);
         } finally {
-            if (finish != null) {
-                finish.doBusiness(this);
+            if (finish != null && finish instanceof StationRoutingWrap) {
+                ((StationRoutingWrap) finish).doBusiness(this);
             }
         }
         return busContext;
@@ -46,19 +52,21 @@ public class Bus {
 
     private void dealExcpetion(Exception e) {
         busContext.setException(e);
-        if (exception != null) {
-            exception.doBusiness(this);
+        if (exception != null && exception instanceof StationRoutingWrap) {
+            ((StationRoutingWrap) exception).doBusiness(this);
+        } else {
+            System.err.println(e.getMessage());
         }
     }
 
-    public void arrive(Station station) throws Exception {
+    public void arrive(StationRoutingWrap stationRoutingWrap) throws Exception {
         if (maxPath <= arriveStationNums++) {
             throw new MaxPathException("max path is:" + maxPath);
         }
         if (record) {
-            busPathRecords.add(new BusPathRecord(station.getName(), JSON.toJSONString(getBusContext())));
+            busPathRecords.add(new BusPathRecord(stationRoutingWrap.getName(), JSON.toJSONString(getBusContext())));
         }
-        station.doBusiness(this);
+        stationRoutingWrap.getHandlerMethod().invokeForBus(this);
     }
 
     public BusContext getBusContext() {
@@ -101,7 +109,7 @@ public class Bus {
         busContext.getContext().put(key, value);
     }
 
-    public Object getContest(String key) {
+    public Object getContext(String key) {
         return busContext.getContext().get(key);
     }
 
@@ -109,7 +117,7 @@ public class Bus {
         dealExcpetion(e);
     }
 
-    public void setRoutingKey(String key){
+    public void setRoutingKey(String key) {
         busContext.setRoutingKey(key);
     }
 }

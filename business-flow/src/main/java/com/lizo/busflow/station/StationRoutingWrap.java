@@ -11,19 +11,19 @@ import com.lizo.busflow.routing.Routing;
  * Created by lizhou on 2017/3/14/014.
  */
 public class StationRoutingWrap implements Station {
-    private Station station;
     private Routing routing;
+    private BusHandlerMethod handlerMethod;
 
     public void doBusiness(Bus bus) {
-        if (station != null) {
+        if (handlerMethod != null && handlerMethod.getStation() != null) {
             try {
-                bus.arrive(station);
+                bus.arrive(this);
             } catch (Exception e) {
                 bus.occurException(e);
             }
         }
         if (routing != null) {
-            Station next = routing.doRouting(bus.getBusContext());
+            StationRoutingWrap next = routing.doRouting(bus.getBusContext());
             if (next != null) {
                 next.doBusiness(bus);
             }
@@ -31,16 +31,9 @@ public class StationRoutingWrap implements Station {
     }
 
     public String getName() {
-        return station.getName();
+        return handlerMethod.getStation().getName();
     }
 
-    public Station getStation() {
-        return station;
-    }
-
-    public void setStation(Station station) {
-        this.station = station;
-    }
 
     public Routing getRouting() {
         return routing;
@@ -50,5 +43,11 @@ public class StationRoutingWrap implements Station {
         this.routing = routing;
     }
 
+    public BusHandlerMethod getHandlerMethod() {
+        return handlerMethod;
+    }
 
+    public void setHandlerMethod(BusHandlerMethod handlerMethod) {
+        this.handlerMethod = handlerMethod;
+    }
 }

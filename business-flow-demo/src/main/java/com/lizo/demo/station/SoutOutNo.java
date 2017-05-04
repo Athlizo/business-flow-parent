@@ -8,9 +8,8 @@ import com.lizo.busflow.station.Station;
  */
 public class SoutOutNo implements Station {
 
-    @Override
-    public void doBusiness(Bus bus) {
-        System.out.println("ok");
+    public void printNo() {
+        System.out.println("No");
     }
 
     @Override

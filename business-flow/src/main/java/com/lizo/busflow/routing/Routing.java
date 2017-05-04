@@ -2,6 +2,7 @@ package com.lizo.busflow.routing;
 
 import com.lizo.busflow.context.BusContext;
 import com.lizo.busflow.station.Station;
+import com.lizo.busflow.station.StationRoutingWrap;
 
 /**
  * 当一个{@link Station}处理完毕后，可以动态确定下一个{@link Station}
@@ -10,5 +11,5 @@ import com.lizo.busflow.station.Station;
  * Created by lizhou on 2017/3/14/014.
  */
 public interface Routing {
-    Station doRouting(BusContext busContext);
+    StationRoutingWrap doRouting(BusContext busContext);
 }

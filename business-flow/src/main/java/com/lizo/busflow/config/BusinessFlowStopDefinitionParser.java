@@ -3,9 +3,11 @@ package com.lizo.busflow.config;
 import com.lizo.busflow.pattern.PatternType;
 import com.lizo.busflow.routing.impl.DefaultRouting;
 import com.lizo.busflow.routing.impl.SimpleRoutingCondition;
+import com.lizo.busflow.station.BusHandlerMethod;
 import com.lizo.busflow.station.StationRoutingWrap;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
+import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.ManagedList;
@@ -23,14 +25,15 @@ public class BusinessFlowStopDefinitionParser implements BeanDefinitionParser {
     public BeanDefinition parse(Element element, ParserContext parserContext) {
         String id = element.getAttribute(ID_ATTRIBUTE);
         String ref = element.getAttribute("ref");
+        String method = element.getAttribute("method");
 
         RootBeanDefinition nodeWrapDefinition = new RootBeanDefinition();
         nodeWrapDefinition.setBeanClass(StationRoutingWrap.class);
 
         //解析ref属性，因为ref引用的也是一个StationRoutingWrap,可能在这里还未注册
         //因此使用RuntimeBeanReference
-        RuntimeBeanReference refBean = new RuntimeBeanReference(ref);
-        nodeWrapDefinition.getPropertyValues().addPropertyValue("station", refBean);
+        RuntimeBeanReference stationRef = new RuntimeBeanReference(ref);
+//        nodeWrapDefinition.getPropertyValues().addPropertyValue("station", refBean);
 
         //解析子标签，子标签为一个list,
         // 这里不能直接用List<BeanDefinition>，而要用ManagedList，运行时去解析BeanDefinition
@@ -52,6 +55,15 @@ public class BusinessFlowStopDefinitionParser implements BeanDefinitionParser {
         routing.getPropertyValues().add("routingConditions", routingConditions);
 
         nodeWrapDefinition.getPropertyValues().add("routing", routing);
+
+        //handleMethod
+        RootBeanDefinition handleMethodBeanDefinition = new RootBeanDefinition();
+        handleMethodBeanDefinition.setBeanClass(BusHandlerMethod.class);
+        ConstructorArgumentValues constructorArgumentValues = new ConstructorArgumentValues();
+        constructorArgumentValues.addIndexedArgumentValue(0, stationRef);
+        constructorArgumentValues.addIndexedArgumentValue(1, method);
+        handleMethodBeanDefinition.setConstructorArgumentValues(constructorArgumentValues);
+        nodeWrapDefinition.getPropertyValues().add("handlerMethod", handleMethodBeanDefinition);
 
         BeanDefinitionHolder holder = new BeanDefinitionHolder(nodeWrapDefinition, id);
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, parserContext.getRegistry());

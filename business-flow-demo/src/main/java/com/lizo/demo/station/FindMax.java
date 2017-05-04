@@ -1,6 +1,7 @@
 package com.lizo.demo.station;
 
 import com.lizo.busflow.bus.Bus;
+import com.lizo.busflow.station.BusParameter;
 import com.lizo.busflow.station.Station;
 
 import java.util.List;
@@ -10,10 +11,7 @@ import java.util.List;
  */
 public class FindMax implements Station {
     public static final String FindMaxKey = "maxValue";
-
-    @Override
-    public void doBusiness(Bus bus) {
-        List<Integer> l = (List<Integer>) bus.getContest("intList");
+    public void doBusiness(@BusParameter("intList") List<Integer> l, Bus bus) {
         if (l.size() == 0) {
             return;
         }

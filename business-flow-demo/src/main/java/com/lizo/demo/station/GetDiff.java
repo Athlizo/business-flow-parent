@@ -1,22 +1,20 @@
 package com.lizo.demo.station;
 
 import com.lizo.busflow.bus.Bus;
+import com.lizo.busflow.station.BusParameter;
 import com.lizo.busflow.station.Station;
+import com.sun.org.glassfish.gmbal.ParameterNames;
 
 /**
  * Created by lizhou on 2017/4/8/008.
  */
 public class GetDiff implements Station {
-    private String numA;
-    private String numB;
 
-    @Override
-    public void doBusiness(Bus bus) {
-        Integer max = (Integer) bus.getContest(numA);
-        Integer min = (Integer) bus.getContest(numB);
-        if(max - min < 10){
+    public void abstractCalculate(@BusParameter("maxValue") int a, @BusParameter("minValue") int b, Bus bus) {
+
+        if (Math.abs(a - b) < 10) {
             bus.setRoutingKey("ok");
-        }else{
+        } else {
             bus.setRoutingKey("no");
         }
     }
@@ -26,19 +24,4 @@ public class GetDiff implements Station {
         return null;
     }
 
-    public void setNumA(String numA) {
-        this.numA = numA;
-    }
-
-    public String getNumA() {
-        return numA;
-    }
-
-    public void setNumB(String numB) {
-        this.numB = numB;
-    }
-
-    public String getNumB() {
-        return numB;
-    }
 }
