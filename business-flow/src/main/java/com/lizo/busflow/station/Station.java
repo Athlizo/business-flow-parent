@@ -10,7 +10,6 @@ import com.lizo.busflow.bus.Bus;
  * Created by lizhou on 2017/3/14/014.
  */
 public interface Station {
-    void doBusiness(Bus bus);
 
     String getName();
 }

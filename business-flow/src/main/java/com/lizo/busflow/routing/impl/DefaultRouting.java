@@ -5,6 +5,7 @@ import com.lizo.busflow.exception.NoRoutingException;
 import com.lizo.busflow.routing.Routing;
 import com.lizo.busflow.routing.RoutingCondition;
 import com.lizo.busflow.station.Station;
+import com.lizo.busflow.station.StationRoutingWrap;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DefaultRouting implements Routing {
     public DefaultRouting() {
     }
 
-    public Station doRouting(BusContext busContext) {
+    public StationRoutingWrap doRouting(BusContext busContext) {
         for (RoutingCondition routingCondition : routingConditions) {
             if (routingCondition.isDefaultMatch() ||routingCondition.matched(busContext)) {
                 return routingCondition.getStationRoutingWrap();

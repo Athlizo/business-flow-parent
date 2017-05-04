@@ -56,6 +56,11 @@
                 </xsd:appinfo>
             </xsd:annotation>
         </xsd:attribute>
+        <xsd:attribute name="method" type="xsd:string" use="required">
+            <xsd:annotation>
+
+            </xsd:annotation>
+        </xsd:attribute>
     </xsd:attributeGroup>
 
 
