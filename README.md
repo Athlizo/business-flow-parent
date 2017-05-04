@@ -42,8 +42,8 @@ Routing的一定是要一个对应的Station的，例如可以在xml配置中，
 一个bus的定义可以理解为定义了一个业务流程
 ```
 <bf:bus id="testBus" start="findMaxStop" maxPath="1000" record="false"  exception="exceptionStation" finish="endStation"/>
-
-其中: start确定了业务开始的Station，maxPath规定了bus如果处理的次数大于这个数就会跑出异常（防止死循环），record为true表示会为bus经过的每个Station记录一个上下文环境的快照，exception指定当发送异常的时候由哪个Station进行处理，例如一个打错误日志的Station，finish表示当整个流程处理完以后会由哪个Station最最后处理。
 ```
+其中: start确定了业务开始的Station，maxPath规定了bus如果处理的次数大于这个数就会跑出异常（防止死循环），record为true表示会为bus经过的每个Station记录一个上下文环境的快照，exception指定当发送异常的时候由哪个Station进行处理，例如一个打错误日志的Station，finish表示当整个流程处理完以后会由哪个Station最最后处理。
+
 
 

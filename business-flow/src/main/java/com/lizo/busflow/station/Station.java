@@ -1,8 +1,6 @@
 package com.lizo.busflow.station;
 
 
-import com.lizo.busflow.bus.Bus;
-
 /**
  * 一个Station可以看成是一个单独的业务处理逻辑
  *
