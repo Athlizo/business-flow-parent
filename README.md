@@ -5,7 +5,7 @@
 ## Station
 Station可以理解为一个业务流（处理链）中的一个单独的节点。这个节点应该是只依赖于Bus中的上下文环境，根据bus的上下文环境进行处理，并且把处理后的结果（如果有）也放入bus的上下文环境中，供下游的节点使用。
 ## Routing
-由于Station之间并没有直接关联，因此Routing负责连接各个Station，每个Station都有一个Routing来负责处理bus到底哪个Station。
+由于Station之间并没有直接关联，因此Routing负责连接各个Station，每个Station都有一个Routing来负责动态判断当前Station处理完毕后的下一个Station。
 #如何使用
 
 ## Station
@@ -32,7 +32,7 @@ Routing的一定是要一个对应的Station的，例如可以在xml配置中，
   <!--这个是一个Station-->
    <bean id="getDiff" class="com.lizo.demo.station.GetDiff"></bean>
 
-<!--这个是一个Station-->
+    <!--这个是一个Routing-->
     <bf:stop id="getDiffStop" ref="getDiff" method="abstractCalculate">
         <bf:routing value="ok" to="soutOutOkStop"/>
         <bf:routing value="no" to="soutOutNoStop"/>
