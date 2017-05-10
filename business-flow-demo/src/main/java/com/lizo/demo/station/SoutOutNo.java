@@ -1,6 +1,5 @@
 package com.lizo.demo.station;
 
-import com.lizo.busflow.bus.Bus;
 import com.lizo.busflow.station.Station;
 
 /**

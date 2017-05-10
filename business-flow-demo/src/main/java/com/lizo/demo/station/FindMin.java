@@ -1,6 +1,8 @@
 package com.lizo.demo.station;
 
 import com.lizo.busflow.bus.Bus;
+import com.lizo.busflow.bus.DefaultBus;
+import com.lizo.busflow.station.BusParameter;
 import com.lizo.busflow.station.Station;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
 public class FindMin implements Station {
     public static final String FindMinKey = "minValue";
 
-    public void doBusiness(List<Integer> intList, Bus bus) {
+    public void doBusiness(List<Integer> intList, @BusParameter(value = "test", require = false) char test, Bus bus) {
         if (intList.size() == 0) {
             return;
         }

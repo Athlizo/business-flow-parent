@@ -3,8 +3,9 @@ package com.lizo.busflow.station;
 import com.lizo.busflow.bus.Bus;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.*;
+import org.springframework.core.BridgeMethodResolver;
+import org.springframework.core.GenericTypeResolver;
+import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.SynthesizingMethodParameter;
 import org.springframework.util.Assert;
@@ -24,7 +25,7 @@ public class BusHandlerMethod {
      */
     protected final Log logger = LogFactory.getLog(getClass());
 
-    private final Station station;
+    private final Object bean;
 
     private final Class<?> beanType;
 
@@ -35,12 +36,10 @@ public class BusHandlerMethod {
     private final MethodParameter[] parameters;
 
 
-
-
-    public BusHandlerMethod(Station bean, String methodName) throws NoSuchMethodException {
+    public BusHandlerMethod(Object bean, String methodName) throws NoSuchMethodException {
         Assert.notNull(bean, "Bean is required");
         Assert.notNull(methodName, "Method name is required");
-        this.station = bean;
+        this.bean = bean;
         this.beanType = ClassUtils.getUserClass(bean);
 //        this.method = station.getClass().getMethod(methodName, parameterTypes);
         for (Method tempMethod : bean.getClass().getMethods()) {
@@ -69,7 +68,7 @@ public class BusHandlerMethod {
     protected void doInvoke(Object... args) throws Exception {
         ReflectionUtils.makeAccessible(getBridgedMethod());
         try {
-            getBridgedMethod().invoke(getStation(), args);
+            getBridgedMethod().invoke(bean, args);
         } catch (IllegalArgumentException ex) {
             String text = (ex.getMessage() != null ? ex.getMessage() : "Illegal argument");
             throw new IllegalStateException(ex);
@@ -101,11 +100,8 @@ public class BusHandlerMethod {
         return result;
     }
 
-    /**
-     * Returns the station for this handler method.
-     */
-    public Station getStation() {
-        return this.station;
+    public Object getBean() {
+        return bean;
     }
 
     /**
@@ -201,12 +197,12 @@ public class BusHandlerMethod {
             return false;
         }
         BusHandlerMethod otherMethod = (BusHandlerMethod) other;
-        return (this.station.equals(otherMethod.station) && this.method.equals(otherMethod.method));
+        return (this.bean.equals(otherMethod.bean) && this.method.equals(otherMethod.method));
     }
 
     @Override
     public int hashCode() {
-        return (this.station.hashCode() * 31 + this.method.hashCode());
+        return (this.bean.hashCode() * 31 + this.method.hashCode());
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.lizo.busflow.pattern.PatternType;
 import com.lizo.busflow.routing.impl.DefaultRouting;
 import com.lizo.busflow.routing.impl.SimpleRoutingCondition;
 import com.lizo.busflow.station.BusHandlerMethod;
-import com.lizo.busflow.station.StationRoutingWrap;
+import com.lizo.busflow.station.DefaultStationRoutingWrap;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
@@ -30,12 +30,11 @@ public class BusinessFlowStopDefinitionParser implements BeanDefinitionParser {
         String method = element.getAttribute("method");
 
         RootBeanDefinition nodeWrapDefinition = new RootBeanDefinition();
-        nodeWrapDefinition.setBeanClass(StationRoutingWrap.class);
+        nodeWrapDefinition.setBeanClass(DefaultStationRoutingWrap.class);
 
         //解析ref属性，因为ref引用的也是一个StationRoutingWrap,可能在这里还未注册
         //因此使用RuntimeBeanReference
         RuntimeBeanReference stationRef = new RuntimeBeanReference(ref);
-//        nodeWrapDefinition.getPropertyValues().addPropertyValue("station", refBean);
 
         //解析子标签，子标签为一个list,
         // 这里不能直接用List<BeanDefinition>，而要用ManagedList，运行时去解析BeanDefinition

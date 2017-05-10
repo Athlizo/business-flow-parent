@@ -9,5 +9,7 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface BusParameter {
-    String value();
+    String value() default "";
+
+    boolean require() default true;
 }

@@ -1,43 +1,46 @@
 package com.lizo.busflow.context;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * bus 处理中的上下文环境
- * Created by lizhou on 2017/3/14/014.
+ * Created by lizhou on 2017/5/10/010.
  */
-public class BusContext implements Serializable {
-    //路由信息
-    private String routingKey;
-    //上下文环境，存储业务数据相关的数据
-    private Map<String, Object> context = new HashMap<String, Object>();
-    //保存运行期间的异常(如果有)
-    private Exception exception;
+public interface BusContext {
 
 
-    public Exception getException() {
-        return exception;
-    }
+    /**
+     * 根据key从BusContext中获取value
+     *
+     * @param key
+     * @return
+     */
+    Object getValue(String key);
 
-    public void setException(Exception exception) {
-        this.exception = exception;
-    }
+    /**
+     * 新增一个key value到 context中（默认覆盖）
+     *
+     * @param key
+     * @param value
+     */
+    void put(String key, Object value);
 
-    public Map<String, Object> getContext() {
-        return context;
-    }
+    /**
+     * 设置路由key
+     *
+     * @param key
+     */
+    void setRoutingKey(String key);
 
-    public void setContext(Map<String, Object> context) {
-        this.context = context;
-    }
+    /**
+     * 获取路由信息
+     * 注意，如果一个Station没有设置，则为上一个Station的设置的值(如果上一个Station也没设置，以此类推，否则为null)
+     *
+     * @return
+     */
+    String getRoutingKey();
 
-    public String getRoutingKey() {
-        return routingKey;
-    }
-
-    public void setRoutingKey(String routingKey) {
-        this.routingKey = routingKey;
-    }
+    /**
+     * 保存运行过程中exception
+     *
+     * @param e
+     */
+    void holderException(Exception e);
 }

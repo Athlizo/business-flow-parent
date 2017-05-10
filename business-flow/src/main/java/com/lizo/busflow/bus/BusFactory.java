@@ -11,6 +11,7 @@ import org.springframework.beans.factory.BeanFactoryAware;
  */
 public class BusFactory implements BeanFactoryAware {
     private static BeanFactory beanFactory;
+    private Class BusClass;
 
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         BusFactory.beanFactory = beanFactory;
