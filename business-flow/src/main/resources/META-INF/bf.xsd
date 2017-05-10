@@ -22,7 +22,6 @@
     </xsd:element>
 
 
-
     <xsd:group name="stopElements">
         <xsd:sequence>
             <xsd:element ref="description" minOccurs="0"/>
@@ -49,11 +48,11 @@
     <xsd:attributeGroup name="stopAttributes">
         <xsd:attribute name="ref" type="xsd:IDREF" use="required">
             <xsd:annotation>
-                <xsd:appinfo>
-                    <tool:annotation kind="ref">
-                        <tool:expected-type type="com.lizo.busflow.station.Station"/>
-                    </tool:annotation>
-                </xsd:appinfo>
+                <!--<xsd:appinfo>-->
+                <!--<tool:annotation kind="ref">-->
+                <!--<tool:expected-type type="java.lang.Object"/>-->
+                <!--</tool:annotation>-->
+                <!--</xsd:appinfo>-->
             </xsd:annotation>
         </xsd:attribute>
         <xsd:attribute name="method" type="xsd:string" use="required">
@@ -88,11 +87,11 @@
         </xsd:attribute>
         <xsd:attribute name="to" type="xsd:IDREF" use="required">
             <xsd:annotation>
-                <xsd:appinfo>
-                    <tool:annotation kind="ref">
-                        <tool:expected-type type="com.lizo.busflow.station.Station"/>
-                    </tool:annotation>
-                </xsd:appinfo>
+                <!--<xsd:appinfo>-->
+                <!--<tool:annotation kind="ref">-->
+                <!--<tool:expected-type type="com.lizo.busflow.station.Station"/>-->
+                <!--</tool:annotation>-->
+                <!--</xsd:appinfo>-->
             </xsd:annotation>
         </xsd:attribute>
         <xsd:attribute name="patten" type="xsd:string" default="string">
@@ -126,20 +125,20 @@
     <xsd:complexType name="busType">
         <xsd:attribute name="id" type="xsd:ID" use="required">
             <xsd:annotation>
-                <xsd:appinfo>
-                    <tool:annotation kind="ref">
-                        <tool:expected-type type="java.lang.Object"/>
-                    </tool:annotation>
-                </xsd:appinfo>
+                <!--<xsd:appinfo>-->
+                <!--<tool:annotation kind="ref">-->
+                <!--<tool:expected-type type="java.lang.Object"/>-->
+                <!--</tool:annotation>-->
+                <!--</xsd:appinfo>-->
             </xsd:annotation>
         </xsd:attribute>
         <xsd:attribute name="start" type="xsd:string" use="required">
             <xsd:annotation>
-                <xsd:appinfo>
-                    <tool:annotation kind="ref">
-                        <tool:expected-type type="com.lizo.busflow.station.Station"/>
-                    </tool:annotation>
-                </xsd:appinfo>
+                <!--<xsd:appinfo>-->
+                <!--<tool:annotation kind="ref">-->
+                <!--<tool:expected-type type="com.lizo.busflow.station.Station"/>-->
+                <!--</tool:annotation>-->
+                <!--</xsd:appinfo>-->
             </xsd:annotation>
         </xsd:attribute>
         <xsd:attribute name="maxPath" type="xsd:integer" default="100000">
@@ -147,23 +146,26 @@
         </xsd:attribute>
         <xsd:attribute name="exception" type="xsd:IDREF">
             <xsd:annotation>
-                <xsd:appinfo>
-                    <tool:annotation kind="ref">
-                        <tool:expected-type type="com.lizo.busflow.station.Station"/>
-                    </tool:annotation>
-                </xsd:appinfo>
+                <!--<xsd:appinfo>-->
+                <!--<tool:annotation kind="ref">-->
+                <!--<tool:expected-type type="java.lang.Object"/>-->
+                <!--</tool:annotation>-->
+                <!--</xsd:appinfo>-->
             </xsd:annotation>
         </xsd:attribute>
         <xsd:attribute name="finish" type="xsd:IDREF">
             <xsd:annotation>
                 <xsd:appinfo>
                     <tool:annotation kind="ref">
-                        <tool:expected-type type="com.lizo.busflow.station.Station"/>
+                        <!--<tool:expected-type type="java.lang.Object"/>-->
                     </tool:annotation>
                 </xsd:appinfo>
             </xsd:annotation>
         </xsd:attribute>
         <xsd:attribute name="record" type="xsd:boolean" default="true">
+            <![CDATA[ ]]>
+        </xsd:attribute>
+        <xsd:attribute name="class" type="xsd:string" default="com.lizo.busflow.bus.DefaultBus">
             <![CDATA[ ]]>
         </xsd:attribute>
     </xsd:complexType>

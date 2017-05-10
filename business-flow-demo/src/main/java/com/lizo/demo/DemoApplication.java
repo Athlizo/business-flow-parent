@@ -2,6 +2,7 @@ package com.lizo.demo;
 
 
 import com.lizo.busflow.bus.Bus;
+import com.lizo.busflow.bus.DefaultBus;
 import com.lizo.busflow.bus.BusFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

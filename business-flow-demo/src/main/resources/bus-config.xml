@@ -14,16 +14,15 @@
     <bean id="findMin" class="com.lizo.demo.station.FindMin"/>
     <bean id="soutOutOk" class="com.lizo.demo.station.SoutOutOk"/>
     <bean id="soutOutNo" class="com.lizo.demo.station.SoutOutNo"/>
-    <!--这个是一个Station-->
     <bean id="getDiff" class="com.lizo.demo.station.GetDiff">
     </bean>
 
     <bean id="end" class="com.lizo.demo.station.TestEndStation"/>
 
-    <bf:bus id="testBus" start="findMaxStop" maxPath="1000" record="false"  exception="exceptionStation" finish="endStation"/>
+    <bf:bus id="testBus" start="findMaxStop" record="false" finish="end" class="com.lizo.busflow.bus.DefaultBus"/>
 
     <bf:stop id="findMaxStop" ref="findMax" method="doBusiness">
-        <bf:routing to="getDiffStop"/>
+        <bf:routing to="findMinStop"/>
     </bf:stop>
 
     <bf:stop id="findMinStop" ref="findMin" method="doBusiness">
@@ -37,6 +36,7 @@
 
     <bf:stop id="soutOutOkStop" ref="soutOutOk" method="printOk">
     </bf:stop>
+
 
     <bf:stop id="soutOutNoStop" ref="soutOutNo" method="printNo">
     </bf:stop>

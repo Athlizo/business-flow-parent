@@ -1,6 +1,6 @@
 package com.lizo.busflow.config;
 
-import com.lizo.busflow.bus.Bus;
+import com.lizo.busflow.bus.DefaultBus;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -25,9 +25,16 @@ public class BusinessFlowBusDefinitionParser implements BeanDefinitionParser {
         String maxPath = element.getAttribute("maxPath"); //最长运行路径
         String exception = element.getAttribute("exception");
         String finish = element.getAttribute("finish");
+        String clazz = element.getAttribute("class");
 
         RootBeanDefinition bus = new RootBeanDefinition();
-        bus.setBeanClass(Bus.class);
+        try {
+            Class busClass = Class.forName(clazz);
+            bus.setBeanClass(busClass);
+        } catch (ClassNotFoundException e) {
+            throw new IllegalArgumentException("not found bus class:" + clazz);
+        }
+
         //保证每次获取的都是新的对象
         bus.setScope(ConfigurableBeanFactory.SCOPE_PROTOTYPE);
 
