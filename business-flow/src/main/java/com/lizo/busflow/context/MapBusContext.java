@@ -21,7 +21,7 @@ public class MapBusContext implements BusContext, Serializable {
         return exception;
     }
 
-    public void setException(Exception exception) {
+    public void holderException(Exception exception) {
         this.exception = exception;
     }
 

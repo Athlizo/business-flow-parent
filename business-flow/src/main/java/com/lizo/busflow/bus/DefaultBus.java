@@ -36,25 +36,24 @@ public class DefaultBus implements Bus {
 
     public BusContext run() {
         try {
-            if (!(start instanceof DefaultStationRoutingWrap)) {
+            if (!(start instanceof StationRoutingWrap)) {
                 throw new IllegalArgumentException("bus start must be <bf:stop id=\"\">");
             }
-
-            ((DefaultStationRoutingWrap) start).doBusiness(this);
+            ((StationRoutingWrap) start).doBusiness(this);
         } catch (Exception e) {
             dealExcpetion(e);
         } finally {
-            if (finish != null && finish instanceof DefaultStationRoutingWrap) {
-                ((DefaultStationRoutingWrap) finish).doBusiness(this);
+            if (finish != null && finish instanceof StationRoutingWrap) {
+                ((StationRoutingWrap) finish).doBusiness(this);
             }
         }
         return busContext;
     }
 
     public void dealExcpetion(Exception e) {
-        busContext.setException(e);
-        if (exception != null && exception instanceof DefaultStationRoutingWrap) {
-            ((DefaultStationRoutingWrap) exception).doBusiness(this);
+        busContext.holderException(e);
+        if (exception != null && exception instanceof StationRoutingWrap) {
+            ((StationRoutingWrap) exception).doBusiness(this);
         } else {
             System.err.println(e.getMessage());
         }
@@ -67,7 +66,6 @@ public class DefaultBus implements Bus {
         if (record) {
             busPathRecords.add(new BusPathRecord(stationRoutingWrap.getName(), JSON.toJSONString(getBusContext())));
         }
-        stationRoutingWrap.invokeStationMethod(this);
     }
 
     public BusContext getBusContext() {
@@ -130,9 +128,9 @@ public class DefaultBus implements Bus {
         return busContext.getValue(key);
     }
 
-
-
-
+    public void setBusContext(BusContext busContext) {
+        this.busContext = busContext;
+    }
 
     public void setRoutingKey(String key) {
         busContext.setRoutingKey(key);
