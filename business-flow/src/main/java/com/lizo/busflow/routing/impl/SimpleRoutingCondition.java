@@ -1,7 +1,6 @@
 package com.lizo.busflow.routing.impl;
 
 import com.lizo.busflow.context.BusContext;
-import com.lizo.busflow.context.MapBusContext;
 import com.lizo.busflow.pattern.PatternFactory;
 import com.lizo.busflow.pattern.PatternType;
 import com.lizo.busflow.pattern.match.PatternMatch;

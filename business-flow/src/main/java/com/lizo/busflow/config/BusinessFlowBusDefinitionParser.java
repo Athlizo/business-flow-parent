@@ -1,6 +1,5 @@
 package com.lizo.busflow.config;
 
-import com.lizo.busflow.bus.DefaultBus;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

@@ -2,7 +2,6 @@ package com.lizo.busflow.station;
 
 
 import com.lizo.busflow.bus.Bus;
-import com.lizo.busflow.bus.DefaultBus;
 import com.lizo.busflow.routing.Routing;
 
 /**
