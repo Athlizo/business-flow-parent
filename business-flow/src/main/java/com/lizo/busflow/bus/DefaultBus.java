@@ -26,7 +26,6 @@ public class DefaultBus implements Bus {
     private BusContext busContext;
 
     private List<BusPathRecord> busPathRecords = new ArrayList<BusPathRecord>();
-    private boolean record;
 
     private int arriveStationNums;
 
@@ -63,9 +62,7 @@ public class DefaultBus implements Bus {
         if (maxPath <= arriveStationNums++) {
             throw new MaxPathException("max path is:" + maxPath);
         }
-        if (record) {
-            busPathRecords.add(new BusPathRecord(stationRoutingWrap.getName(), JSON.toJSONString(getBusContext())));
-        }
+        busPathRecords.add(new BusPathRecord(stationRoutingWrap.getName(), JSON.toJSONString(getBusContext())));
     }
 
     public BusContext getBusContext() {
@@ -96,13 +93,6 @@ public class DefaultBus implements Bus {
         this.finish = finish;
     }
 
-    public boolean isRecord() {
-        return record;
-    }
-
-    public void setRecord(boolean record) {
-        this.record = record;
-    }
 
     public int getArriveStationNums() {
         return arriveStationNums;
